@@ -44,7 +44,7 @@ public class Section4Application implements ApplicationRunner {
             futures.add(result);
         }
 
-        futures.forEach(val -> System.out.println(getPayload(val)));
+//        futures.forEach(val -> System.out.println(getPayload(val)));
     }
 
     @SneakyThrows

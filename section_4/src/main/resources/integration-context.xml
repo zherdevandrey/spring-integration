@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:int="http://www.springframework.org/schema/integration"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
 
 	<int:gateway service-interface="com.example.section_4.PrinterGateWay" default-request-channel="inputChannel"/>
 
-	<int:channel id="inputChannel">
-		<int:priority-queue capacity="10"/>
-	</int:channel>
+	<int:publish-subscribe-channel id="inputChannel" task-executor="executor"/>
+
+	<task:executor pool-size="2" id="executor"/>
 
 	<bean class="com.example.section_4.PrintingService" id="printService"/>
 
 	<bean class="com.example.section_4.UpperCasePrintingService" id="upperCasePrintingService"/>
 
-	<int:service-activator ref="printService" method="print" input-channel="inputChannel">
-		<int:poller fixed-delay="1" time-unit="SECONDS" max-messages-per-poll="10"/>
-	</int:service-activator>
+	<int:service-activator order="2" ref="printService" method="print" input-channel="inputChannel"/>
 
-	<int:service-activator ref="upperCasePrintingService" method="print" input-channel="inputChannel">
-		<int:poller fixed-delay="1" time-unit="SECONDS" max-messages-per-poll="10"/>
-	</int:service-activator>
+	<int:service-activator order="1"  ref="upperCasePrintingService" method="print" input-channel="inputChannel"/>
 
 </beans>

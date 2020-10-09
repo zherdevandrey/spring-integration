@@ -8,8 +8,10 @@ public class UpperCasePrintingService {
     public Message<String> print(Message<String> message) {
         int messageNumber = (int) message.getHeaders().get("messageNumber");
 
+        System.out.println(("Upper reply on message id = " + messageNumber).toUpperCase());
+
         return MessageBuilder
-                .withPayload(("Reply on message id = " + messageNumber).toUpperCase())
+                .withPayload(("Upper reply on message id = " + messageNumber).toUpperCase())
                 .build();
     }
 

@@ -8,8 +8,10 @@ public class PrintingService {
     public Message<String> print(Message<String> message) {
         int messageNumber = (int) message.getHeaders().get("messageNumber");
 
+        System.out.println("Normal reply on message id = " + messageNumber);
+
         return MessageBuilder
-                .withPayload("Reply on message id = " + messageNumber)
+                .withPayload("Normal reply on message id = " + messageNumber)
                 .build();
     }
 
