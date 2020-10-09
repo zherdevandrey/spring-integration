@@ -27,7 +27,6 @@ public class Section4Application implements ApplicationRunner {
     @Autowired
     private PrinterGateWay printerGateWay;
 
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -37,6 +36,7 @@ public class Section4Application implements ApplicationRunner {
             Message<String> message = MessageBuilder
                     .withPayload(" message payload " + i)
                     .setHeader("messageNumber", i)
+                    .setPriority(i)
                     .build();
 
             Future<Message<String>> result = printerGateWay.print(message);
@@ -44,7 +44,7 @@ public class Section4Application implements ApplicationRunner {
             futures.add(result);
         }
 
-        futures.forEach(val -> System.out.println("result " + getPayload(val)));
+        futures.forEach(val -> System.out.println(getPayload(val)));
     }
 
     @SneakyThrows
