@@ -1,4 +1,4 @@
-package com.example.springintegration;
+package com.example.section_3;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,12 +12,13 @@ import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
+
 @SpringBootApplication
 @ImportResource("integration-context.xml")
-public class SpringIntegrationApplication implements ApplicationRunner {
+public class Section3Application implements ApplicationRunner {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringIntegrationApplication.class, args);
+        SpringApplication.run(Section3Application.class, args);
     }
 
     @Autowired

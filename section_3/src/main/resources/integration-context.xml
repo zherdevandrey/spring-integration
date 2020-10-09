@@ -7,8 +7,7 @@
 
 	<int:channel id="inputChannel"/>
 
-
-	<bean class="com.example.springintegration.PrintingService" id="printService"/>
+	<bean class="com.example.section_3.PrintingService" id="printService"/>
 
 	<int:service-activator ref="printService" method="print" input-channel="inputChannel"/>
 
