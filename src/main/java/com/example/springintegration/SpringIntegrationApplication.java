@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
@@ -20,27 +21,19 @@ public class SpringIntegrationApplication implements ApplicationRunner {
     }
 
     @Autowired
-    private PrintingService printingService;
-
-    @Autowired
     @Qualifier("inputChannel")
     private DirectChannel input;
-
-    @Autowired
-    @Qualifier("outputChannel")
-    private DirectChannel output;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        output.subscribe(message -> System.out.println(message.getPayload()));
-
-        Message<String> message = MessageBuilder
+        Message<String> inputMessage = MessageBuilder
                 .withPayload("payload")
                 .setHeader("header", "header")
                 .build();
-        input.send(message);
 
+        Message returnMessage = new MessagingTemplate().sendAndReceive(input, inputMessage);
 
+        System.out.println(returnMessage.getPayload());
     }
 }
