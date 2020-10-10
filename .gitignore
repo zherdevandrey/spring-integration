@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+/section_4/.mvn/
+/section_3/.mvn/
+/section_3/.mvn/
+/.mvn/
+/section_3/.mvn/

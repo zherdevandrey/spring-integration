@@ -9,6 +9,14 @@
 
 	<int:gateway service-interface="com.example.section_4.PrinterGateWay" default-request-channel="inputChannel"/>
 
+	<int:channel id="pollableChanel">
+		<int:queue capacity="10"/>
+	</int:channel>
+
+	<int:bridge id="bridge" input-channel="pollableChanel" output-channel="inputChannel">
+		<int:poller id="pooler" fixed-delay="5" time-unit="SECONDS" max-messages-per-poll="5"/>
+	</int:bridge>
+
 	<int:publish-subscribe-channel id="inputChannel" task-executor="executor"/>
 
 	<task:executor pool-size="2" id="executor"/>
