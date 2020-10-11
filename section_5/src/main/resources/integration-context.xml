@@ -9,24 +9,19 @@
 
 	<int:gateway service-interface="com.example.section_5.PrinterGateWay" default-request-channel="inputChannel"/>
 
-	<int:channel id="pollableChanel">
-		<int:queue capacity="10"/>
-	</int:channel>
+	<int:channel id="inputChannel"/>
 
-	<int:bridge id="bridge" input-channel="pollableChanel" output-channel="inputChannel">
-		<int:poller id="pooler" fixed-delay="5" time-unit="SECONDS" max-messages-per-poll="5"/>
-	</int:bridge>
+	<int:payload-type-router input-channel="inputChannel">
+		<int:mapping type="java.lang.Integer" channel="intChannel"/>
+		<int:mapping type="java.lang.String" channel="stringChannel"/>
+	</int:payload-type-router>
 
-	<int:publish-subscribe-channel id="inputChannel" task-executor="executor"/>
+	<bean class="com.example.section_5.StringPrintingService" id="stringPrintService"/>
 
-	<task:executor pool-size="2" id="executor"/>
+	<bean class="com.example.section_5.IntPrintingService" id="intPrintingService"/>
 
-	<bean class="com.example.section_5.PrintingService" id="printService"/>
+	<int:service-activator ref="stringPrintService" method="print" input-channel="stringChannel"/>
 
-	<bean class="com.example.section_5.UpperCasePrintingService" id="upperCasePrintingService"/>
-
-	<int:service-activator order="2" ref="printService" method="print" input-channel="inputChannel"/>
-
-	<int:service-activator order="1"  ref="upperCasePrintingService" method="print" input-channel="inputChannel"/>
+	<int:service-activator ref="intPrintingService" method="print" input-channel="intChannel"/>
 
 </beans>

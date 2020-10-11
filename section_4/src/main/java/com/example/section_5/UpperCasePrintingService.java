@@ -1,4 +1,4 @@
-package com.example.section_4;
+package com.example.section_5;
 
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
