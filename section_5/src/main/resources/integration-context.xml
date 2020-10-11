@@ -10,17 +10,12 @@
 	<int:gateway service-interface="com.example.section_5.PrinterGateWay" default-request-channel="inputChannel"/>
 
 	<int:channel id="inputChannel"/>
+	<int:channel id="outputChannel"/>
 
-	<int:router ref="customRouter" input-channel="inputChannel"/>
+	<int:filter expression="payload.equals(5)" input-channel="inputChannel" output-channel="outputChannel"/>
 
-	<bean class="com.example.section_5.CustomRouter" id="customRouter"/>
+	<bean class="com.example.section_5.PrintingService" id="printingService"/>
 
-	<bean class="com.example.section_5.StringPrintingService" id="stringPrintService"/>
-
-	<bean class="com.example.section_5.IntPrintingService" id="intPrintingService"/>
-
-	<int:service-activator ref="stringPrintService" method="print" input-channel="stringChannel"/>
-
-	<int:service-activator ref="intPrintingService" method="print" input-channel="intChannel"/>
+	<int:service-activator ref="printingService" method="print" input-channel="outputChannel"/>
 
 </beans>
