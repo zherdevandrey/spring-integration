@@ -23,23 +23,10 @@ public class Section5Application implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Message<String> stringMessage = MessageBuilder
-                .withPayload("String value")
+                .withPayload("FIRST SECOND")
                 .setHeader("header-value", "string")
                 .build();
 
-        Message<Integer> intMessage5 = MessageBuilder
-                .withPayload(5)
-                .setHeader("header-value", "int 5")
-                .build();
-
-        Message<Integer> intMessage100 = MessageBuilder
-                .withPayload(100)
-                .setHeader("header-value", "int 100")
-                .build();
-
         printerGateWay.print(stringMessage);
-        printerGateWay.print(intMessage5);
-        printerGateWay.print(intMessage100);
-
     }
 }

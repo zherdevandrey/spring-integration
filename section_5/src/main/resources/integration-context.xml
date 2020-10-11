@@ -12,12 +12,11 @@
 	<int:channel id="inputChannel"/>
 	<int:channel id="outputChannel"/>
 
-	<int:filter ref="customFilter" input-channel="inputChannel" output-channel="outputChannel"/>
-
-	<bean class="com.example.section_5.CustomFilter" id="customFilter"/>
-
-	<bean class="com.example.section_5.PrintingService" id="printingService"/>
+	<int:splitter ref="customSplitter" input-channel="inputChannel" output-channel="outputChannel"/>
 
 	<int:service-activator ref="printingService" method="print" input-channel="outputChannel"/>
+
+	<bean class="com.example.section_5.CustomSplitter" id="customSplitter"/>
+	<bean class="com.example.section_5.PrintingService" id="printingService"/>
 
 </beans>
