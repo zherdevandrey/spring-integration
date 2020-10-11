@@ -11,25 +11,25 @@ import org.springframework.messaging.support.MessageBuilder;
 
 @SpringBootApplication
 @ImportResource("integration-context.xml")
-public class Section4Application implements ApplicationRunner {
+public class Section5Application implements ApplicationRunner {
 
     @Autowired
     private PrinterGateWay printerGateWay;
 
     public static void main(String[] args) {
-        SpringApplication.run(Section4Application.class, args);
+        SpringApplication.run(Section5Application.class, args);
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Message<String> stringMessage = MessageBuilder
                 .withPayload("String value")
-                .setHeader("header", "String header")
+                .setHeader("header-value", "string")
                 .build();
 
         Message<Integer> intMessage = MessageBuilder
                 .withPayload(100)
-                .setHeader("header", "Int header")
+                .setHeader("header-value", "int")
                 .build();
 
         printerGateWay.print(stringMessage);

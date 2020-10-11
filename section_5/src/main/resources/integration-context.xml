@@ -11,10 +11,10 @@
 
 	<int:channel id="inputChannel"/>
 
-	<int:payload-type-router input-channel="inputChannel">
-		<int:mapping type="java.lang.Integer" channel="intChannel"/>
-		<int:mapping type="java.lang.String" channel="stringChannel"/>
-	</int:payload-type-router>
+	<int:header-value-router input-channel="inputChannel" header-name="header-value">
+		<int:mapping  value="int"   channel="intChannel"/>
+		<int:mapping value="string" channel="stringChannel"/>
+	</int:header-value-router>
 
 	<bean class="com.example.section_5.StringPrintingService" id="stringPrintService"/>
 
