@@ -13,9 +13,9 @@
 	<int:channel id="outputChannel"/>
 	<int:channel id="enrichChannel"/>
 
-	<int:header-enricher input-channel="inputChannel" output-channel="enrichChannel" ref="headerEnricher" method="enrich">
-		<int:header name="Authorization" ref="headerEnricher" method="enrich"/>
-	</int:header-enricher>
+	<int:enricher input-channel="inputChannel" output-channel="enrichChannel">
+		<int:property name="phoneNumber" value="123456789"/>
+	</int:enricher>
 
 	<int:object-to-json-transformer input-channel="enrichChannel" output-channel="outputChannel"/>
 
