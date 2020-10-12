@@ -21,16 +21,18 @@
         <jdbc:script location="init.sql"/>
     </jdbc:embedded-database>
 
-    <int-jdbc:outbound-channel-adapter
-            channel="jdbcChannel"
-            query="insert into person values(:payload.id,:payload.firstName,:payload.lastName)"
-            data-source="datasource">
-    </int-jdbc:outbound-channel-adapter>
+    <int-jdbc:outbound-gateway
+        data-source="datasource"
+        request-channel="jdbcChannel"
+        reply-channel="printChannel"
+        update="insert into person values(:payload.id,:payload.firstName,:payload.lastName)"
+        />
 
     <bean id="mp" class="com.example.section_10.MessagePrinter"/>
 
-    <int:service-activator ref="mp" method="print" input-channel="jdbcChannel"/>
+    <int:service-activator ref="mp" method="print" input-channel="printChannel"/>
 
     <int:channel id="jdbcChannel"/>
+    <int:channel id="printChannel"/>
 
 </beans>
