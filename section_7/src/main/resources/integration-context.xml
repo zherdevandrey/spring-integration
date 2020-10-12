@@ -8,7 +8,9 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
 
 	<int:gateway service-interface="com.example.section_7.EnhancedPrinterGateway">
-			<int:method name="print" request-channel="printChannel"/>
+			<int:method name="print" request-channel="printChannel">
+				<int:header name="TEMP-HEADER" value="TEMP-VALUE"/>
+			</int:method>
 			<int:method name="upper" request-channel="upperChannel"/>
 	</int:gateway>
 
