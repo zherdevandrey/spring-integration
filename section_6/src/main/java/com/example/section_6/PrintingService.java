@@ -10,12 +10,11 @@ public class PrintingService {
 
     public Message<String> print(Message<String> message) {
 
-        String payload = message.getPayload();
-
-        System.out.println("MESSAGE PAYLOAD - " + payload);
+        System.out.println("MESSAGE HEADER - " + message.getPayload());
+        System.out.println("MESSAGE PAYLOAD - " + message.getHeaders());
 
         return MessageBuilder
-                .withPayload("Int message " + payload)
+                .withPayload("Int message " + message.getPayload())
                 .build();
     }
 

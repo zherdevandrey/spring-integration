@@ -22,8 +22,15 @@ public class Section6Application implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Message<String> stringMessage = MessageBuilder
-                .withPayload("FIRST SECOND")
+
+        Person person = Person.builder()
+                .name("person")
+                .age(100)
+                .build();
+
+
+        Message<Person> stringMessage = MessageBuilder
+                .withPayload(person)
                 .setHeader("header-value", "string")
                 .build();
 
