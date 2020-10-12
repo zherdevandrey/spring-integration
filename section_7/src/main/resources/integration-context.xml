@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:int="http://www.springframework.org/schema/integration"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
+
+	<int:gateway service-interface="com.example.section_7.EnhancedPrinterGateway">
+			<int:method name="print" request-channel="printChannel"/>
+			<int:method name="upper" request-channel="upperChannel"/>
+	</int:gateway>
+
+	<int:channel id="printChannel"/>
+	<int:channel id="upperChannel"/>
+
+	<int:service-activator ref="printingService" method="print" input-channel="printChannel"/>
+	<int:service-activator ref="upperCaseService" method="upperCase" input-channel="upperChannel"/>
+
+	<bean class="com.example.section_7.PrintingService" id="printingService"/>
+	<bean class="com.example.section_7.UpperCaseService" id="upperCaseService"/>
+
+</beans>

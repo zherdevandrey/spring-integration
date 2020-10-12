@@ -1,4 +1,4 @@
-package com.example.section_6;
+package com.example.section_7;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -11,13 +11,14 @@ import org.springframework.messaging.support.MessageBuilder;
 
 @SpringBootApplication
 @ImportResource("integration-context.xml")
-public class Section6Application implements ApplicationRunner {
+public class Section7Application implements ApplicationRunner {
 
     @Autowired
-    private PrinterGateWay printerGateWay;
+    private EnhancedPrinterGateway printerGateWay;
+
 
     public static void main(String[] args) {
-        SpringApplication.run(Section6Application.class, args);
+        SpringApplication.run(Section7Application.class, args);
     }
 
     @Override
@@ -29,11 +30,7 @@ public class Section6Application implements ApplicationRunner {
                 .build();
 
 
-        Message<Person> stringMessage = MessageBuilder
-                .withPayload(person)
-                .setHeader("replyChannel", "outputChannel")
-                .build();
-
-        printerGateWay.print(stringMessage);
+        printerGateWay.print(person);
+        printerGateWay.upper(person);
     }
 }
